@@ -5,20 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.custom_triggers;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.Indexer;
 
-public class ExampleSubsystem extends SubsystemBase {
-  /**
-   * Creates a new ExampleSubsystem.
-   */
-  public ExampleSubsystem() {
+public class Idle4Balls extends Trigger {
+    Indexer m_IndexerSubsytem;
 
-  }
+    public Idle4Balls(Indexer subsystem){
+        m_IndexerSubsytem = subsystem;
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public boolean get() {
+        return m_IndexerSubsytem.has_4_balls();
+    }
 }
