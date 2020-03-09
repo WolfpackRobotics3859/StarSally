@@ -14,14 +14,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.autonomous_commands.LongShotCross;
-import frc.robot.commands.autonomous_commands.ShootAndCross;
+//import frc.robot.commands.autonomous_commands.ShootAndCross;
 import frc.robot.commands.climb.ClimbDisabled;
 import frc.robot.commands.climb.ClimbEnabled;
 import frc.robot.commands.drive.JoystickDrive;
-import frc.robot.commands.indexer.Index4thBall;
-import frc.robot.commands.indexer.IndexBallProcess;
 import frc.robot.commands.indexer.IndexerAcceptBall;
-import frc.robot.commands.indexer.IndexerBallProccessing;
 import frc.robot.commands.indexer.IndexerClimb;
 import frc.robot.commands.indexer.IndexerForceOut;
 import frc.robot.commands.indexer.IndexerIdleSpeed;
@@ -38,11 +35,8 @@ import frc.robot.commands.shooter.ShooterDormant;
 import frc.robot.commands.shooter.ShooterFlashlightOff;
 import frc.robot.commands.shooter.ShooterFlashlightOn;
 import frc.robot.commands.shooter.ShooterToggleShoot;
-import frc.robot.custom_triggers.FireTrigger;
 import frc.robot.custom_triggers.FlashlightTrigger;
 import frc.robot.custom_triggers.Idle4Balls;
-import frc.robot.custom_triggers.IndexerReadyToAccept4th;
-import frc.robot.custom_triggers.IndexerTrigger;
 import frc.robot.custom_triggers.ReadyToAcceptBall4;
 import frc.robot.custom_triggers.ReadyToAcceptBall_1_3;
 import frc.robot.custom_triggers.ReadyToIdle;
@@ -73,7 +67,7 @@ public class RobotContainer {
   private final ShooterDormant m_ShooterDormant = new ShooterDormant(m_Shooter);
 
 
-  private ShootAndCross m_ShootAndCross = new ShootAndCross(m_Shooter, m_Indexer, m_Drivetrain);
+//  private ShootAndCross m_ShootAndCross = new ShootAndCross(m_Shooter, m_Indexer, m_Drivetrain);
   private LongShotCross m_LongShotCross = new LongShotCross(m_Shooter, m_Indexer, m_Drivetrain);
 
   public static XboxController controller_1 = new XboxController(0);
@@ -82,11 +76,8 @@ public class RobotContainer {
   public static Joystick controller_1_joy = new Joystick(0);
   public static XboxTriggerAxis controller_1_right_trigger_axis = new XboxTriggerAxis(controller_1_joy, 3);
   public static XboxTriggerAxis controller_1_left_trigger_axis = new XboxTriggerAxis(controller_1_joy, 2);
-  public static IndexerTrigger indexerTrigger = new IndexerTrigger(m_Indexer);
-  public static IndexerReadyToAccept4th indexerTrig4th = new IndexerReadyToAccept4th(m_Indexer);
   public static FlashlightTrigger flashlightTrigger = new FlashlightTrigger(controller_1_joy, 2);
   public static SpinUpTrigger spinUpTrigger = new SpinUpTrigger(controller_1_joy, 2);
-  public static FireTrigger fireTrigger = new FireTrigger(controller_1_joy, 2);
   public static ReadyToAcceptBall4 readyToAcceptBall4 = new ReadyToAcceptBall4(m_Indexer);
   public static ReadyToAcceptBall_1_3 readyToAcceptBall_1_3 =  new ReadyToAcceptBall_1_3(m_Indexer);
   public static ReadyToIdle readyToIdle = new ReadyToIdle(m_Indexer);
@@ -114,7 +105,6 @@ public class RobotContainer {
 
   private void configureSubsytems() {
     m_Indexer.sys_init();
-  //  m_Indexer.setDefaultCommand(m_IndexerIdleSpeed);
 
     m_Drivetrain.sys_init();
     m_Drivetrain.setDefaultCommand(m_JoystickDrive);
@@ -139,15 +129,9 @@ public class RobotContainer {
     flashlightTrigger.whenActive(new ShooterFlashlightOn(m_Shooter))
                      .whenInactive(new ShooterFlashlightOff(m_Shooter));
     spinUpTrigger.whileActiveContinuous(new ShooterActive(m_Shooter));
-    // fireTrigger.whileActiveContinuous(new IndexerShoot(m_Indexer), false);
-    // indexerTrigger.whenActive(new IndexerBallProccessing(m_Indexer));
-    // indexerTrig4th.whenActive(new IndexerAcceptBall(m_Indexer));
-
 
     xbox_1_lb.whileActiveContinuous(new IndexerShoot(m_Indexer), false);
     xbox_1_lstick.whenPressed(new ShooterToggleShoot(m_Shooter));
-
-    xbox_2_b.whenPressed(new IndexerBallProccessing(m_Indexer));
 
     xbox_2_select.whenPressed(new IndexerResetBallCount(m_Indexer));
 
@@ -174,7 +158,6 @@ public class RobotContainer {
    * @return the command to run in autonomousr
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return m_LongShotCross;
   }
 }

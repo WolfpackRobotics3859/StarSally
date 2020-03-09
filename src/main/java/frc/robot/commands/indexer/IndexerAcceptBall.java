@@ -10,11 +10,9 @@ package frc.robot.commands.indexer;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Indexer;
-import static frc.robot.Constants.*;
 
 public class IndexerAcceptBall extends CommandBase {
   private Indexer m_IndexerSubsystem;
-  private int goal_position;
   private Timer m_Timer;
 
   public IndexerAcceptBall(Indexer subsystem) {

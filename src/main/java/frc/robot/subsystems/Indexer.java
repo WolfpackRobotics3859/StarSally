@@ -21,18 +21,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Indexer extends SubsystemBase {
+  //Green Flex Wheels - Filter wheels that separate the indexer and intake well.
   private final WPI_TalonFX _filterWheelsFx = new WPI_TalonFX(k_green_intake_falcon);
+  //Blue Indexer Band - The indexer band has many interactions: Shoot, Index, Purge, and Climb 
   private final WPI_TalonFX _indexerBandFx = new WPI_TalonFX(k_climb_cartridge_falcon);
+  //Orange Bands - Helps funnel balls from the intake to the green filter wheels.
   private WPI_VictorSPX _intBandVk = new WPI_VictorSPX(k_intake_bands_viktor);
   
+  //The first sharp sensor is located within the intake well and is intended to read ball position if the filter wheels are stopped.
+  //The second and third sharp sensors detect a ball that is about to approach the blue indexer band.
   private static AnalogInput _sharpSensor, _secondSharpSensor, _thirdSharpSensor;
+  
+  //The indexer ball count is a count that interfaces with several of the boolean returning functions to trigger ball count specific
+  //events
   private int indexer_ball_count;
 
   private Timer ball_position_timer = new Timer();
   private Timer ball_position_timer_2 = new Timer();
   private Timer ball_position_timer_3 = new Timer();
-
-  private boolean is_indexing = false;
 
   public Indexer() {
     indexer_ball_count = 0;
@@ -196,36 +202,8 @@ public class Indexer extends SubsystemBase {
     indexer_ball_count = 0;
   }
 
-  public boolean second_sharp_sensor_positive(){
-    return _secondSharpSensor.getValue() > 425;
-  }
-
-  public boolean ready_to_accept() {
-    return second_sharp_sensor_positive() && indexer_ball_count < 3 && !is_Processing();
-  }
-
-  public boolean ready_to_accept4th(){
-    return indexer_ball_count == 3 && ball_in_position && !is_Processing();    
-  }
-
-  public boolean ready_to_idle(){
-    return indexer_ball_count < 3 && !second_sharp_sensor_positive();
-  }
-
   public boolean has_less_than_three_balls(){
     return indexer_ball_count < 3;
-  }
-
-  public void indexing_finished() {
-    is_indexing = false;
-  }
-
-  public void indexing_started() {
-    is_indexing = true;
-  }
-
-  public boolean is_Processing() {
-    return is_indexing;
   }
 
   public void reset_timer(){

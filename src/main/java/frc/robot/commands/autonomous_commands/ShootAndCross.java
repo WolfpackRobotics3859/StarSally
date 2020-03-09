@@ -8,7 +8,6 @@
 package frc.robot.commands.autonomous_commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.drive.LinearDrive;
 import frc.robot.commands.indexer.IndexerShoot;
 import frc.robot.commands.shooter.ShooterActive;

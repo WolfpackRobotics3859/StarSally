@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
   private WPI_TalonFX _extIntakeFx = new WPI_TalonFX(k_exterior_intake_falcon);
-  DoubleSolenoid _extIntakeSolenoid = new DoubleSolenoid(1, 5);
+  private DoubleSolenoid _extIntakeSolenoid = new DoubleSolenoid(1, 5);
   
   public void sys_init() {
     _extIntakeFx.configFactoryDefault();
@@ -42,6 +42,5 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    }
 }

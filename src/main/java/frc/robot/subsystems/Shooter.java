@@ -13,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import static frc.robot.Constants.*;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -24,7 +23,6 @@ public class Shooter extends SubsystemBase {
   private final WPI_TalonFX _shooterRightFx = new WPI_TalonFX(k_right_shooter_falcon);
   DoubleSolenoid _hoodSolenoid = new DoubleSolenoid(0, 4);
   Relay _flashlight = new Relay(1);
-  CameraServer camera;
   
   public void sys_init() {
     _flashlight.set(edu.wpi.first.wpilibj.Relay.Value.kForward);
@@ -59,8 +57,6 @@ public class Shooter extends SubsystemBase {
     _shooterRightFx.follow(_shooterLeftFx);
     _shooterLeftFx.configClosedloopRamp(1);
     _shooterLeftFx.setNeutralMode(NeutralMode.Brake);
-
-    camera = CameraServer.getInstance();
 
     System.out.println("Shooter Initiated...");
   }
